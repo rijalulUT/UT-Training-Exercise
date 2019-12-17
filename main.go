@@ -13,7 +13,7 @@ type User struct {
 
 type UserData struct {
 	Success bool         `json:"success"`
-	User    []UserDetail `json:"user"`
+	User    []UserDetail `json:"data"`
 }
 
 type UserDetail struct {
@@ -33,28 +33,22 @@ func main() {
 	outputs := `{"success":true,"data":[{"id":"1","name":"user 1"},{"id":"2","name":"user 2"},{"id":"3","name":"user 3"}]}`
 	var dataDetail = []byte(outputs)
 
-	var data UserData
-	//var detail UserDetail
+	var dataUser UserData
 
-	var err = json.Unmarshal(dataDetail, &data)
+	var err = json.Unmarshal(dataDetail, &dataUser)
 
 	if err != nil {
 		fmt.Println("Erronr Unmarshalling json " + err.Error())
 		return
 	}
 
-	// var errlagi = json.Unmarshal([]byte(data.User), &detail)
-	// if errlagi != nil {
-	// 	fmt.Println("Erronr Unmarshalling json " + errlagi.Error())
-	// 	return
-	// }
-
-	if data.Success == true {
+	if dataUser.Success == true {
 		fmt.Println("true")
 	} else {
 		fmt.Println("false")
 	}
-	for _, det := range data.User {
+
+	for _, det := range dataUser.User {
 		fmt.Println("id_", det.Id, "#name_", det.Name)
 	}
 
